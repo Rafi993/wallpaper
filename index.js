@@ -1,9 +1,9 @@
 'use strict';
 
-if (process.platform === 'darwin') {
-	module.exports = require('./lib/macos');
-} else if (process.platform === 'win32') {
-	module.exports = require('./lib/win');
-} else {
-	module.exports = require('./lib/linux');
-}
+const osLib = {
+		'darwin' : require('./lib/macos');
+		'win32' : require('./lib/win');
+		'default': require('./lib/linux');
+	};
+
+module.exports	osLib[process.platform] || osLib['default'];
